@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/admin.css">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <th>OrderID</th>
+            <th>Client</th>
+            <th>Status</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>#YWSNWDAAW</td>
+                <td>4</td>
+                <td>
+                    <select name="select" id="select">
+                        <option value="nothing"></option>
+                        <option value="Order Processed">Order Processed</option>
+                        <option value="Order Shipped">Order Shipped</option>
+                        <option value="Order En Route">Order En Route</option>
+                        <option value="Order Arrival">Order Arrival</option>
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+        var select = document.getElementById('select');
+        
+        select.addEventListener('change', function(e) {
+            e.preventDefault();
+            var x = select.selectedIndex;
+            //console.log(select.item(x).value)
+            const msg = select.item(x).value;
+            if (msg != "nothing") {
+                socket.emit('chat message', msg);
+            //input.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
